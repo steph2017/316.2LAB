@@ -515,12 +515,11 @@ const table = document.createElement("table");
 
 for (let r = 0; r < rows; r++) {
   const tr = document.createElement("tr");
+  tr.setAttribute("id", "r" + r);
   for (let c = 0; c < cols; c++) {
     const td = document.createElement("td");
-
-    // Sneak peek at what's coming next!
-    // After creating an element, it needs
-    // to be added to the DOM tree.
+    td.setAttribute("id", "c" + c + "r" + r);
+    //add to DOM
     tr.appendChild(td);
   }
   table.appendChild(tr);
@@ -536,10 +535,17 @@ if (wordGuess === wordAnswer) {
 } else {
   for (i = 0; i < wordGuess.length; i++) {
     if (wordGuess[i] == wordAnswer[i]) {
+      let greenCell = document.getElementById("c" + i + "r0");
+      greenCell.style.backgroundColor = "lightgreen";
+
       //cell goes green (set attribute, style="backgroundColor green;")
     } else if (wordAnswer.includes(wordGuess[i])) {
+      let yellowCell = document.getElementById("c" + i + "r0");
+      yellowCell.style.backgroundColor = "lightgoldenrodyellow";
       //cell goes yellow
     } else {
+      let redCell = document.getElementById("c" + i + "r0");
+      redCell.style.backgroundColor = "lightpink";
       //cell goes red
     }
   }
