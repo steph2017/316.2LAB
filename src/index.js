@@ -534,17 +534,21 @@ if (wordGuess === wordAnswer) {
   //all cells in row go green - Send a dialog box that they won.
 } else {
   for (i = 0; i < wordGuess.length; i++) {
+    // add text
     if (wordGuess[i] == wordAnswer[i]) {
       let greenCell = document.getElementById("c" + i + "r0");
+      greenCell.textContent = wordGuess[i];
       greenCell.style.backgroundColor = "lightgreen";
 
       //cell goes green (set attribute, style="backgroundColor green;")
     } else if (wordAnswer.includes(wordGuess[i])) {
       let yellowCell = document.getElementById("c" + i + "r0");
-      yellowCell.style.backgroundColor = "lightgoldenrodyellow";
+      yellowCell.textContent = wordGuess[i];
+      yellowCell.style.backgroundColor = "khaki";
       //cell goes yellow
     } else {
       let redCell = document.getElementById("c" + i + "r0");
+      redCell.textContent = wordGuess[i];
       redCell.style.backgroundColor = "lightpink";
       //cell goes red
     }
