@@ -528,38 +528,49 @@ for (let r = 0; r < rows; r++) {
 app.appendChild(table);
 
 //Write code to process a 7 letter word vs the answer. (we will then turn it into a repeating function).
-for (tries = 0; tries < 10; tries++) {
-  let wordGuess = window.prompt(
-    "Guess a 7-letter word. You have " + (10 - tries) + " tries left!",
-  );
-  if (wordGuess == "") {
-    alert("You didn't enter anything. Please refresh the page and try again.");
-    break;
-  } else {
-    for (i = 0; i < wordGuess.length; i++) {
-      // add text
-      if (wordGuess[i] == wordAnswer[i]) {
-        let greenCell = document.getElementById("c" + i + "r" + tries);
-        greenCell.textContent = wordGuess[i];
-        greenCell.style.backgroundColor = "lightgreen";
+let tries = 0;
+function aGuess() {
+  // We need a function to contain this process, so we can set timeout to it.
+  if (tries < 10) {
+    let wordGuess = window.prompt(
+      "Guess a 7-letter word. You have " + (10 - tries) + " tries left!",
+    );
+    if (wordGuess == "") {
+      alert(
+        "You didn't enter anything. Please refresh the page and try again.",
+      );
+      return;
+    } else {
+      for (i = 0; i < wordGuess.length; i++) {
+        // add text
+        if (wordGuess[i] == wordAnswer[i]) {
+          let greenCell = document.getElementById("c" + i + "r" + tries);
+          greenCell.textContent = wordGuess[i];
+          greenCell.style.backgroundColor = "lightgreen";
 
-        //cell goes green (set attribute, style="backgroundColor green;")
-      } else if (wordAnswer.includes(wordGuess[i])) {
-        let yellowCell = document.getElementById("c" + i + "r" + tries);
-        yellowCell.textContent = wordGuess[i];
-        yellowCell.style.backgroundColor = "khaki";
-        //cell goes yellow
-      } else {
-        let redCell = document.getElementById("c" + i + "r" + tries);
-        redCell.textContent = wordGuess[i];
-        redCell.style.backgroundColor = "lightpink";
-        //cell goes red
+          //cell goes green (set attribute, style="backgroundColor green;" UPDATE use doc.style)
+        } else if (wordAnswer.includes(wordGuess[i])) {
+          let yellowCell = document.getElementById("c" + i + "r" + tries);
+          yellowCell.textContent = wordGuess[i];
+          yellowCell.style.backgroundColor = "khaki";
+          //cell goes yellow
+        } else {
+          let redCell = document.getElementById("c" + i + "r" + tries);
+          redCell.textContent = wordGuess[i];
+          redCell.style.backgroundColor = "lightpink";
+          //cell goes red
+        }
+      }
+      if (wordGuess === wordAnswer) {
+        alert("YOU WON!");
+        return;
       }
     }
-    if (wordGuess === wordAnswer) {
-      alert("YOU WON!");
-      break;
-    }
+    //after main logic is executed, update tries and iterate again until tries are done.
+    tries++;
+    setTimeout(aGuess, 200);
+  } else {
+    alert("No more tries left. The answer was " + wordAnswer);
   }
 }
-alert("No more tries left. The answer was " + wordAnswer);
+aGuess();
